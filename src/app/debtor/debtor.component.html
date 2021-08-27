@@ -1,0 +1,60 @@
+<div class="container-fluid">
+  <div class="seperator-10"></div>
+  <div class="row">
+    <div class="text-start col-3">
+      <input [(ngModel)]="searchFor" class="form-control" type="text" placeholder="Search" (change)="search()">
+    </div>
+    <div class="text-end col-9">
+      <button type="button" class="btn btn-primary" (click)="openModal=true">
+        + Add Debtor
+      </button>
+    </div>
+  </div>
+  <div class="seperator-10"></div>
+  <div>
+    <table>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Number</th>
+        <th>Address</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>Actions</th>
+      </tr>
+      <tr *ngFor="let item of dataList">
+        <td>{{item.fname}}</td>
+        <td>{{item.lname}}</td>
+        <td>{{item.phoneNumber}}</td>
+        <td>{{item.address}}</td>
+        <td>{{item.age}}</td>
+        <td>{{item.gender}}</td>
+        <td>
+      <span>
+        <i class="fas fa-edit pointer" (click)="editModal(item)"></i>
+      </span>
+          <span class="padding-left-5">
+        <i class="fas fa-trash-alt pointer" (click)="deleteModal(item)"></i>
+      </span>
+        </td>
+      </tr>
+
+    </table>
+  </div>
+</div>
+<div *ngIf="openModal">
+  <app-modal (close)="openModal=false" (save)="save($event)">
+
+  </app-modal>
+</div>
+<div *ngIf="openModalEdit">
+  <app-modal (close)="openModalEdit = false;"
+             (save)="update($event)"
+             [values]="itemToBeEdited">
+  </app-modal>
+</div>
+<div *ngIf="openModalDelete">
+  <app-delete-modal (no)="openModalDelete = false"
+                    (yes)="delete()"
+  ></app-delete-modal>
+</div>
