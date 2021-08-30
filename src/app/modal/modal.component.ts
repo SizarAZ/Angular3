@@ -8,7 +8,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 export class ModalComponent implements OnInit {
 
-  @Input() values = {fname: '', lname: '', address: '', age: '', phoneNumber: '', gender: ''};
+  @Input() values = {fname: '', lname: '', address: '', age: '', contactNumber: '', gender: ''};
 
 
   address = [
@@ -50,7 +50,7 @@ export class ModalComponent implements OnInit {
 
   ngOnInit(): void {
     if (!this.values)
-      this.values = {fname: '', lname: '', address: '', age: '', phoneNumber: '', gender: ''};
+      this.values = {fname: '', lname: '', address: '', age: '', contactNumber: '', gender: ''};
   }
 
   closeModal() {

@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import * as routs from '../../api-routs';
+import {DataService} from '../../data.service';
 
 @Component({
   selector: 'app-debtor',
@@ -8,9 +10,9 @@ import {Component, OnInit} from '@angular/core';
 export class DebtorComponent implements OnInit {
 
   public dataList: { [key: string]: string }[] = [
-    {fname: 'Sizar', lname: 'Abou Ziki', phoneNumber: '03883958', address: 'Lebanon', age: '22', gender: 'Male'},
-    {fname: 'Majed', lname: 'Moustafa', phoneNumber: '76451917', address: 'Lebanon', age: '25', gender: 'Male'},
-    {fname: 'Mhammad', lname: 'Hariri', phoneNumber: '76153150', address: 'Lebanon', age: '23', gender: 'Male'}
+    {fname: 'Sizar', lname: 'Abou Ziki', contactNumber: '03883958', address: 'Lebanon', age: '22', gender: 'Male'},
+    {fname: 'Majed', lname: 'Moustafa', contactNumber: '76451917', address: 'Lebanon', age: '25', gender: 'Male'},
+    {fname: 'Mhammad', lname: 'Hariri', contactNumber: '76153150', address: 'Lebanon', age: '23', gender: 'Male'}
   ];
 
   public dataListClone: { [key: string]: string }[] = [];
@@ -18,17 +20,20 @@ export class DebtorComponent implements OnInit {
 
   openModal = false;
   openModalEdit = false;
-  itemToBeEdited = {fname: '', lname: '', address: '', age: '', phoneNumber: '', gender: ''};
+  itemToBeEdited = {fname: '', lname: '', address: '', age: '', contactNumber: '', gender: ''};
   item = {};
   openModalDelete = false;
   itemToBeDeleted = null;
   searchFor = '';
 
-  constructor() {
+
+  constructor(private dataService: DataService) {
   }
 
+
   ngOnInit(): void {
-    this.dataListClone = JSON.parse(JSON.stringify(this.dataList));
+    this.getAllDebtor();
+
 
   }
 
@@ -48,7 +53,7 @@ export class DebtorComponent implements OnInit {
     this.dataList.forEach((row) => {
       if (row.fname === item.fname) {
         row['lname'] = item['lname'];
-        row['phoneNumber'] = item['phoneNumber'];
+        row['contactNumber'] = item['contactNumber'];
         row['address'] = item['address'];
         row['age'] = item['age'];
         row['gender'] = item['gender'];
@@ -76,4 +81,12 @@ export class DebtorComponent implements OnInit {
     this.dataList = this.dataList.filter(x => x.fname.toLowerCase().includes(this.searchFor.toLowerCase()));
   }
 
+  getAllDebtor() {
+    this.dataService.sendGetRequest().subscribe((data) => {
+      console.log(data);
+      this.dataList = JSON.parse(JSON.stringify(data));
+      this.dataListClone = JSON.parse(JSON.stringify(this.dataList));
+
+    });
+  }
 }

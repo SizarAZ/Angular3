@@ -10,6 +10,10 @@ import {FormsModule} from "@angular/forms";
 import {NgSelectModule} from "@ng-select/ng-select";
 import { DeleteModalComponent } from './delete-modal/delete-modal.component';
 
+
+import { HttpClientModule } from '@angular/common/http';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +26,9 @@ import { DeleteModalComponent } from './delete-modal/delete-modal.component';
   imports: [
     BrowserModule,
     FormsModule,
-    NgSelectModule
+    NgSelectModule,
+
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
