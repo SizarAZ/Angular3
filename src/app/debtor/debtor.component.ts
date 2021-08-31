@@ -38,8 +38,12 @@ export class DebtorComponent implements OnInit {
   }
 
   save(event: any) {
-    this.dataList.push(event);
+    //this.dataList.push(event);
+    this.dataService.addItem(event ,(res:any) => {
+      this.getAllDebtor();
+    });
     this.openModal = false;
+
   }
 
   editModal(item: any) {
@@ -88,5 +92,6 @@ export class DebtorComponent implements OnInit {
       this.dataListClone = JSON.parse(JSON.stringify(this.dataList));
 
     });
+
   }
 }
